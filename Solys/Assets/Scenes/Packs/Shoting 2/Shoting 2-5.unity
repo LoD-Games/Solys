@@ -3821,7 +3821,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Camera: {fileID: 1265753517}
   IgnoreGuiFingers: 1
-  isSpecialBounds: 1
+  isSpecialBounds: 0
   bounds: {x: 19, y: 0}
   WheelSensitivity: 0
   isActive: 0
