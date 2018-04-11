@@ -12,7 +12,29 @@ public class ToolboxHandler : MonoBehaviour {
         //Debug.Log(writer.name);
 	}
 	
-	
+    void OnEnable()
+    {
+        GeneralLogic.StartSimulationEvent += HideToolbox;
+        GeneralLogic.StopSimulationEvent += ShowToolbox;
+    }
+
+    void OnDisable()
+    {
+        GeneralLogic.StartSimulationEvent -= HideToolbox;
+        GeneralLogic.StopSimulationEvent -= ShowToolbox;
+    }
+
+    private void HideToolbox()
+    {
+        GetComponent<Animator>().ResetTrigger("Enter");
+        GetComponent<Animator>().SetTrigger("Exit");
+    }
+
+    private void ShowToolbox()
+    {
+        GetComponent<Animator>().ResetTrigger("Exit");
+        GetComponent<Animator>().SetTrigger("Enter");
+    }
 
     public void valueChange(bool isWriter)
     {
