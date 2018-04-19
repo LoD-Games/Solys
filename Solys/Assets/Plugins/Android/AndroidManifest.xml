@@ -15,6 +15,12 @@
     <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="\ 59717739353" />
     <!-- Keep track of which plugin is being used -->
     <meta-data android:name="com.google.android.gms.games.unityVersion" android:value="\ 0.9.50" />
+
+    <provider
+      android:name="com.yasirkula.unity.UnitySSContentProvider"
+      android:authorities="com.LoD.SolysGame"
+      android:exported="false"
+      android:grantUriPermissions="true" />
   </application>
   <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="27" />
   <uses-feature android:glEsVersion="0x00020000" />

@@ -43,26 +43,32 @@ public class ShareScript : MonoBehaviour {
                 "ShareTextRussian" : "ShareTextEnglish";
             string shareText = RemoteSettings.GetString(textLang, string.Empty);
 
-            // block to open the file and share it ------------START
-            AndroidJavaClass intentClass = new AndroidJavaClass("android.content.Intent");
-            AndroidJavaObject intentObject = new AndroidJavaObject("android.content.Intent");
-            intentObject.Call<AndroidJavaObject>("setAction", intentClass.GetStatic<string>("ACTION_SEND"));
-            AndroidJavaClass uriClass = new AndroidJavaClass("android.net.Uri");
-            AndroidJavaObject uriObject = uriClass.CallStatic<AndroidJavaObject>("parse", "file://" + destination);
-            intentObject.Call<AndroidJavaObject>("putExtra", intentClass.GetStatic<string>("EXTRA_STREAM"), uriObject);
-            intentObject.Call<AndroidJavaObject>("putExtra", intentClass.GetStatic<string>("EXTRA_TEXT"), shareText);
-            //intentObject.Call<AndroidJavaObject>("putExtra", intentClass.GetStatic<string>("EXTRA_SUBJECT"), "SUBJECT");
-            intentObject.Call<AndroidJavaObject>("setType", "image/jpeg");
-            AndroidJavaClass unity = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            AndroidJavaObject currentActivity = unity.GetStatic<AndroidJavaObject>("currentActivity");
-
-            // option one WITHOUT chooser:
-            currentActivity.Call("startActivity", intentObject);
-
-            
-
-            // block to open the file and share it ------------END
+            NativeShare share = new NativeShare();
+            share.AddFile(destination).SetText(shareText).Share();
 
         }
+    }
+
+    private void OldShare(string destination, string shareText)
+    {
+        // block to open the file and share it ------------START
+        AndroidJavaClass intentClass = new AndroidJavaClass("android.content.Intent");
+        AndroidJavaObject intentObject = new AndroidJavaObject("android.content.Intent");
+        intentObject.Call<AndroidJavaObject>("setAction", intentClass.GetStatic<string>("ACTION_SEND"));
+        AndroidJavaClass uriClass = new AndroidJavaClass("android.net.Uri");
+        AndroidJavaObject uriObject = uriClass.CallStatic<AndroidJavaObject>("parse", "file://" + destination);
+        intentObject.Call<AndroidJavaObject>("putExtra", intentClass.GetStatic<string>("EXTRA_STREAM"), uriObject);
+        intentObject.Call<AndroidJavaObject>("putExtra", intentClass.GetStatic<string>("EXTRA_TEXT"), shareText);
+        //intentObject.Call<AndroidJavaObject>("putExtra", intentClass.GetStatic<string>("EXTRA_SUBJECT"), "SUBJECT");
+        intentObject.Call<AndroidJavaObject>("setType", "image/jpeg");
+        AndroidJavaClass unity = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        AndroidJavaObject currentActivity = unity.GetStatic<AndroidJavaObject>("currentActivity");
+
+        // option one WITHOUT chooser:
+        currentActivity.Call("startActivity", intentObject);
+
+
+
+        // block to open the file and share it ------------END
     }
 }

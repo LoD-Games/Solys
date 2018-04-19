@@ -6,6 +6,7 @@ using Lean.Localization;
 
 
 public class HelperTextHandler : MonoBehaviour {
+
     private void Start()
     {
         int activeScene = SceneManager.GetActiveScene().buildIndex;
