@@ -19,7 +19,8 @@ public static class HelperTextData
                 return new string[]{
                     "Для рисования линий тратится шкала заряда.",
                     "Ваш результат зависит от количества потраченнго заряда.",
-                    "Чем больше заряда останется - тем лучше!"
+                    "Чем больше заряда останется - тем больше звёзд вы получите.",
+                    "Звёзды требуются для покупки новых уровней."
                 };
             case 6:
                 return new string[] {
@@ -82,7 +83,8 @@ public static class HelperTextData
                 return new string[]{
                     "The charge scale is spent on drawing lines.",
                     "Your result depends on the amount of charge spent.",
-                    "Less charge spent - more stars!"
+                    "Less charge spent - more stars!",
+                    "Stars are required to buy new levels."
                 };
             case 6:
                 return new string[] {
