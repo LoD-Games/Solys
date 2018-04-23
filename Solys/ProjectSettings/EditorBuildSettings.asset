@@ -271,7 +271,4 @@ EditorBuildSettings:
     guid: 72ef1b516dfd64e4d8918e343cea6b61
   - enabled: 1
     path: Assets/Scenes/Packs/Shoting 2/Shoting 2-5.unity
-    guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/Scenes/Share.unity
-    guid: d5ee0920031ecc741b2e930ec8b71f7b
+    guid: bb741e358f2f96a4e9f8231ba4977b7b
