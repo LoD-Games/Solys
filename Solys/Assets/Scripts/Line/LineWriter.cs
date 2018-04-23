@@ -215,24 +215,31 @@ public class LineWriter : MonoBehaviour
     }
     public void CalculateMainLine(LeanFinger finger)
     {
-        if(lastDots>0)
+        try
         {
-            if (dotsForDrawing.Count > lastDots)
-                dotsForDrawing.RemoveRange(dotsForDrawing.Count - lastDots, lastDots);
-            else
-                dotsForDrawing.Clear();
-            lastDots = 0;
+            if (lastDots > 0)
+            {
+                if (dotsForDrawing.Count > lastDots)
+                    dotsForDrawing.RemoveRange(dotsForDrawing.Count - lastDots, lastDots);
+                else
+                    dotsForDrawing.Clear();
+                lastDots = 0;
+            }
+            for (int i = LastPoint; i < (Positions.Count / 4) * 4; i += 3)
+            // Для каждых 4 точек мы используем формулу безье для нахождения дополнительных точек. (Positions.Count / 4) * 4 используется для того, чтобы убрать остаток. остаток прорабатывается в конце.
+            {
+                List<Vector3> drawingDotsInFourDots = GetAdditionalPoints(Positions[i - 3],
+                    Positions[i - 2], Positions[i - 1], Positions[i]);
+                // Данный лист хранит 4 точки, а также дополнительные между ними.
+                for (int ii = 0; ii < drawingDotsInFourDots.Count - 1; ii++)
+                    dotsForDrawing.Add(GetOffsetWheelDots(drawingDotsInFourDots[ii]));
+                // Из данного листа мы переносим точки в лист точек для отрисовки.
+                LastPoint = i + 3;
+            }
         }
-        for (int i = LastPoint; i < (Positions.Count / 4) * 4; i += 3)
-        // Для каждых 4 точек мы используем формулу безье для нахождения дополнительных точек. (Positions.Count / 4) * 4 используется для того, чтобы убрать остаток. остаток прорабатывается в конце.
+        catch (ArgumentOutOfRangeException e)
         {
-            List<Vector3> drawingDotsInFourDots = GetAdditionalPoints(Positions[i - 3],
-                Positions[i - 2], Positions[i - 1], Positions[i]);
-            // Данный лист хранит 4 точки, а также дополнительные между ними.
-            for (int ii = 0; ii < drawingDotsInFourDots.Count - 1; ii++)
-                dotsForDrawing.Add(GetOffsetWheelDots(drawingDotsInFourDots[ii]));
-            // Из данного листа мы переносим точки в лист точек для отрисовки.
-            LastPoint = i+3;
+            Debug.LogWarning("Catched! " + e.Data);
         }
     }
     public void DrawContinueLine(LeanFinger finger)
