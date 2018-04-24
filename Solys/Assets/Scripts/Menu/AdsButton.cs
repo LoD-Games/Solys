@@ -14,7 +14,7 @@ public class AdsButton : MonoBehaviour {
     void Start () {
         if (Advertisement.isSupported)
         {
-            Advertisement.Initialize(gameId, true);
+            Advertisement.Initialize(gameId);
         }
         btn = GetComponent<Button>();
     }
