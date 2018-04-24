@@ -27,21 +27,20 @@ public class ScrollMoveHandler : MonoBehaviour {
     private void FindContentAndScroll(float pos)
     {
         GameObject content = transform.Find("Viewport").Find("Content").gameObject;
-        //Debug.Log(content);
         StartCoroutine(SmoothMoving(content,pos));
     }
 
     
     IEnumerator SmoothMoving(GameObject content, float pos)
     {
-        Debug.Log(content.GetComponent<RectTransform>().localPosition.x);
         yield return new WaitForEndOfFrame();
         Vector3 current = content.GetComponent<RectTransform>().localPosition;
         current.x = Mathf.Lerp(current.x, pos, Time.deltaTime);
         content.GetComponent<RectTransform>().localPosition = current;
         if (Mathf.Abs(current.x - pos) > 100)
             StartCoroutine(SmoothMoving(content, pos));
-            
+
+        Debug.Log("Content Moving " + pos.ToString() + " " + current.ToString());
     }
 
 }
